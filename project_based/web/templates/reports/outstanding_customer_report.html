@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Outstanding Customer Reports {% endblock title %}
+{% block body_id %}outstanding_customer_report{% endblock %}
+{% block controller %}
+	ng-controller="OutstandingCustomerReportController" ng-init="init('{{csrf_token}}','{{report_type}}')"   
+{% endblock controller %}
+{% block content %}
+	<div>
+	
+		<div class="main-title">				
+			<div class="alert alert-info" align="Center"> Outstanding Cutomer Report
+									
+			</div>
+		</div>
+			
+		<div class="error_message">
+			<p>{{msg}}</p>
+		</div>
+		<form name="purchase_form" method="get" action="{% url 'outstanding_customer_report' %}">
+			
+			<div>
+				<div class="reporttext">
+					<label for="e_date">Customer </label>
+				</div>
+
+				<div class="reportinput">
+					<input type="hidden" value="{{report_type}}" name="report_type">
+					<select name="customer" ng-model="customer">
+						<option value="select">Select Customer</option>
+						<option ng-repeat="customer in customers" value="[[customer.id]]">[[customer.customer_name]]</option>
+						<!-- <option value="all">All</option> -->
+					</select>
+				</div>
+			</div>
+			
+			<div class="reporttext">
+				<input type="submit" value="View Report" class="btn btn-info " style="border-top-width: 0px; margin-top: 3px;" />
+			</div>
+		</form>
+		<p class="error_message"> {{validation_error}} </p>
+	</div>
+	
+{% endblock content %}

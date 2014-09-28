@@ -1,0 +1,101 @@
+<div class="menu_header">
+	<div class="logo">
+		<img src="/static/images/Logo.jpg" id="logo">
+	</div>
+	<div class="menu_div">
+		{% if user.is_authenticated %}
+			<ul>
+				<li class="menu"> <img src="/static/images/user.png" width="24px" >
+					<span class="user_name"> 
+						{% if user.is_authenticated %}
+							{% if user.first_name %}
+								{{user.first_name}} {{user.last_name}} 
+							{% else %} 
+								{{user.username}}
+							{% endif %} 
+						{% endif %}
+					</span>
+					<ul>
+						
+						<li> <a href="{% url 'users' user_type='supplier' %}"> Suppliers </a> </li>
+
+						<li> <a href="{% url 'users' user_type='customer'  %}"> Customers </a> </li>
+						<li> <a href="{% url 'cash_in_hand_entry' %}"> Cash Entry </a> </li>
+
+						<li> <a href="{% url 'logout' %}"> Logout </a> </li>
+						
+					</ul>
+				</li>
+				<li class="menu"> <a href=""> Project </a> 
+					<ul> 
+						<li> <a href="{% url 'add_item' %}"> Add Item </a> </li>
+						<li> <a href="{% url 'items' %}"> Items </a> </li>
+						<li> <a href="{% url 'create_project' %}"> Create Project </a> </li>
+						<li> <a href="{% url 'projects' %}"> Projects </a> </li>
+						
+					</ul>
+				</li>
+				<li class="menu"> <a href=""> Purchase </a> </a> 
+					<ul> 
+						
+						<li> <a href="{% url 'purchase' %}?purchase_type=project_based"> Project Based Entry </a> </li>
+						<li> <a href="{% url 'purchase' %}?purchase_type=inventory_based"> Purchase Entry </a> </li>
+						
+					</ul>
+				</li>
+				<li class="menu"> <a href=""> Sales </a>
+					<ul>
+						<li><a href="">Delivery Note</a>
+							<ul class="sub_submenu">
+								<li><a href="{% url 'create_delivery_note' %}?dn_type=project_dn">Project Based DN</a></li>
+								<li><a href="{% url 'create_delivery_note' %}?dn_type=inventory_dn"> Delivery Note</a></li>
+								<li> <a href="{% url 'edit_delivery_note' %}"> Edit Delivery Note </a> </li>
+								<li> <a href="{% url 'print_delivery_note' %}"> Print Delivery Note </a> </li>
+							</ul>
+						</li>
+						<li><a href="">Sales</a>
+							<ul class="sub_submenu">
+								<li> <a href="{% url 'sales' %}?sales_type=project_sales"> Project Based Sales </a> </li>
+								<li><a href="{% url 'sales' %}?sales_type=dn_sales"> DN Sales Entry</a></li>
+								<li><a href="{% url 'sales' %}?sales_type=inventory_sales"> Direct Sales Entry</a></li>
+								<li> <a href="{% url 'edit_sales_invoice' %}"> Edit Sales Invoice </a> </li>
+								<li> <a href="{% url 'print_invoice' %}"> Print Sales Invoice </a> </li>
+							</ul>
+						</li>
+						
+						<li> <a href="{% url 'receipt_voucher' %}"> Receipt Voucher</a> </li>
+						
+					</ul>
+				</li>
+				<li class="menu"> <a href=""> Expenses </a> 
+					<ul>
+						
+						<li><a href="{% url 'expense_list' %}">Expense Entries</a></li>
+						<li><a href="{% url 'new_expense' %}">Add Expense</a></li>
+						<li><a href="{% url 'new_expense_head' %}"> Expense Head</a></li>
+						
+					</ul>
+				</li>
+
+				<li class="menu last"> <a href=""> Reports </a>
+					<ul>
+						{% comment %}
+							<li><a href="{% url 'purchase_report' %}"> Project Purchase Report </a> </li>
+							<li><a href="{% url 'sales_report' %}"> Project Sales Report</a> </li>
+						{% endcomment %}
+						<li><a href="{% url 'purchase_reports' %}"> Purchase Report </a> </li>
+						
+						<li><a href="{% url 'whole_sales_report' %}"> Sales Report</a> </li>
+						<li><a href="{% url 'cash_report' %}"> Cash Report </a> </li>
+						<li><a href="{% url 'bank_income_report' %}"> Bank Income Report</a> </li>
+						<li><a href="{% url 'project_report' %}"> Project Reports </a> </li>
+						<li><a href="{% url 'cash_flow_report' %}"> Cash Flow Report </a> </li>
+						<li><a href="{% url 'expense_report' %}">Expense Report</a></li>
+						<li><a href="{% url 'outstanding_customer_report' %}">Outstanding Customer</a></li>
+						
+					</ul>
+				</li>
+			</ul>
+		{% endif %}
+	</div>
+</div>

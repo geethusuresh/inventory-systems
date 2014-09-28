@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Bank Income Report{% endblock title %}
+{% block body_id %}bank_income_report{% endblock %}
+
+{% block controller %}
+	ng-controller="BankIncomeReportController" ng-init="init('{{csrf_token}}','{{report_type}}')"   
+{% endblock controller %}
+
+{% block content %}
+
+<div>
+	<div class="main-title">		
+		<div class="alert alert-info" align="Center">Bank Income Report</div>
+	</div>	
+
+	<div class="message">
+		<p>{{msg}}</p>
+	</div>
+
+	<form name="salesreport_form" method="get" action="{% url 'bank_income_report' %}">	
+		<div>
+			<input type="hidden" name="report_type" value="{{report_type}}">
+			<div class="reportinput">
+				<label for="s_date">Start Date</label>
+				<input type="text" name="start_date" id="start_date" value="{{start_date}}">
+			</div>					
+			<div class="reportinput">
+				<label for="e_date">End Date</label>
+				<input type="text" name="end_date" id="end_date" value="{{end_date}}">
+			</div>
+		</div>
+		
+		<div class="reportinput">
+			<label> &nbsp; &nbsp;</label>
+			<input type="submit" value="View Report" class="btn btn-info report_button " style="border-top-width: 0px; margin-top: 3px;">
+		</div>	
+	</form>		
+</div>
+
+{% endblock content %}

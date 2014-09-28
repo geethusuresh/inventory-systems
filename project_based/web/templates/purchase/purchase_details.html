@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+
+{% block body_id %}purchase_details{% endblock %}
+
+{% block title %}Purchase Entry{% endblock title %}
+{% block controller %}ng-controller="ViewPurchaseController" ng-init="init('{{csrf_token}}')"{% endblock controller %}
+
+{% block content %}
+
+	<div id="main-title">
+		<div class="alert alert-info" align="Center"><h4>Purchase Entry</h4></div>
+	</div>
+
+	<div class="purchase_form_container">
+		<form name="purchase_entry" method="post">
+			<div class="form_contents_purchase">
+				<div class="section_1_purchase">
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="purchase_invoice_number">Purchase Invoice Number</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="purchase_invoice_number" ng-model="purchase.purchase_invoice_number"  ng-change="load_purchase_details()"/>
+							<label class="error_message">[[error_message]]</label>
+						</div>
+
+					</div>
+
+
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="supplier_invoice_number">Supplier Invoice Number </label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="supplier_invoice_number"  ng-model="purchase.supplier_invoice_number" readonly/>
+						</div>
+					</div>
+
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="supplier_do_number">Supplier DO Number</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="supplier_do_number" ng-model="purchase.supplier_do_number" readonly/>
+						</div>
+					</div>
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="supplier_invoice_date">Supplier Invoice Date</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="supplier_invoice_date" ng-model="purchase.supplier_invoice_date" id="supplier_invoice_date" readonly>
+						</div>
+					</div>
+
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="purchase_invoice_date">Purchase Invoice Date</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="purchase_invoice_date" ng-model="purchase.purchase_invoice_date" id="purchase_invoice_date" readonly/>
+						</div>
+					</div>
+
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="supplier">Supplier</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="supplier" ng-model="purchase.supplier_name" readonly>
+						</div>
+					</div>
+
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="project">Project</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="project" ng-model="purchase.project_name" readonly>
+							
+						</div>
+					</div>
+
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="transport">Transport</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="transport" ng-model="purchase.transport" readonly>
+						</div>
+					</div>
+					
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="payment_mode">Payment Mode</label>
+						</div>
+						
+						<div class="forminput" id="radio_input">
+							<input type="radio" name="payment_mode" ng-model="purchase.payment_mode" value="cash" disabled><label>Cash</label>
+							<input type="radio" name="payment_mode" ng-model="purchase.payment_mode" value="cheque" disabled><label>Cheque</label>
+							<input type="radio" name="payment_mode" ng-model="purchase.payment_mode" value="credit" disabled><label>Credit</label>
+						</div>
+					</div>
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="bank_name">Bank name</label>
+						</div>
+						
+						<div class="forminput" id="radio_input">
+							<input type="text" name="bank_name" ng-model="purchase.bank_name" readonly/>
+						</div>
+					</div>
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="cheque_no">Cheque No</label>
+						</div>
+						
+						<div class="forminput" id="radio_input">
+							<input type="text" name="cheque_no" ng-model="purchase.cheque_no" readonly/>
+						</div>
+					</div>
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="cheque_date">Cheque Date</label>
+						</div>
+						
+						<div class="forminput" id="radio_input">
+							<input type="text" name="cheque_date" id="cheque_date" ng-model="purchase.cheque_date" readonly/>
+						</div>
+					</div>
+				</div>
+				
+
+   				<div class="purchase_items_list" ng-show="purchase.purchase_items.length > 0">
+   					<div class="purchase_item_list">
+   						<div class="item_list_row header">
+							<span class="small_column"> Item Code </span>
+							<span> Item name </span>
+							<span> Current Stock </span>
+							<span> Unit Price </span>
+							<span> Qty purchased </span>
+							<span> Cost Price </span>
+							<span> Selling Price</span>	
+							<span> Net Amount </span>
+						</div>
+						<div ng-repeat="item in purchase.purchase_items" class="item_list_row">
+							<span class="small_column">[[item.item_code]] </span>
+							<span>[[item.item_name]] </span>
+							<span>[[item.current_stock]] </span>
+							<span> [[item.unit_price]] </span>			
+							<span> [[item.qty_purchased]]</span> 
+							<span> [[item.cost_price]] </span>
+							<span> [[item.selling_price]] </span>
+							<span> [[item.net_amount]] </span>
+						</div>
+						<div class="clear"></div>
+   					</div>
+   					<div class="clear"></div>
+   				</div>
+   				<div class="clear"></div>
+				<div class="section_1_purchase">
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="supplier_amout">Supplier Amount</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="supplier_amount" ng-model="purchase.supplier_amount" readonly />
+						</div>
+						<div class="formtext_purchase">
+							<label for="purchase_expense">Purchase Expense</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="purchase_expense" ng-model="purchase.purchase_expense"  readonly/>
+						</div>
+					</div>
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="net_total">Net Total</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="net_total" ng-model="purchase.net_total" readonly/>
+						</div>
+					</div>
+
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="discount">Discount</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="discount" ng-model="purchase.discount" readonly/>
+						</div>
+					</div>
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="discount">Discount Percentage</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="discount_percentage" ng-model="purchase.discount_percentage" readonly/>
+						</div>
+					</div>
+					<div class="formrow_purchase">
+						<div class="formtext_purchase">
+							<label for="grant_total">Grand Total</label>
+						</div>
+						<div class="forminput">
+							<input type="text" name="grant_total" ng-model="purchase.grant_total" readonly />
+						</div>
+					</div>
+				</div>
+			</div>
+					
+		</form>
+		<div class="clear"></div>
+	</div>
+
+{% endblock content %}

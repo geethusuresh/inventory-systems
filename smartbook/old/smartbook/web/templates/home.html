@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title%}
+{% block content %}
+	{% if user.is_authenticated %}	
+		<h1 class="welcome"> Welcome to Smart Book </h1>
+
+	{% else %}
+	
+		<div class="login">
+			<div class="div_header">
+				Login
+			</div>
+			<div class="login_form_container">
+				<form name="login" method="post" action="{% url 'login' %}">
+					{% csrf_token %}
+					<p> Username : <input type="text" name="username" /></p>
+					<p> Password : <input type="password" name="password" /></p>
+					<p> {{message}} </p>
+					<p> <input type="submit" name="submit" value="Login" />
+				</form>
+			</div>
+			<div class="clear"></div>
+		</div>
+	{% endif %}
+{% endblock content %}
